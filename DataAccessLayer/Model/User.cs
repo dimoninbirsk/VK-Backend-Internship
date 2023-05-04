@@ -1,6 +1,6 @@
 ﻿namespace VKBackendInternship.DataAccessLayer.Model
 {
-    public class Usercs
+    public class User
     {
         public int Id { get; set; }
         
