@@ -8,7 +8,31 @@ namespace VKBackendInternship.DataAccessLayer.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            throw new NotImplementedException();
+            builder
+                .ToTable("user")
+                .HasKey(user => user.Id)
+                .HasName("id");
+
+            builder.HasOne(user => user.Group);
+            builder.HasOne(user => user.State);
+
+            builder.Property(user => user.Login)
+                .IsRequired()
+                .HasColumnName("login");
+
+            builder.Property(user => user.Password)
+                .IsRequired()
+                .HasColumnName("password");
+
+            builder.Property(user => user.DateOfCreation)
+                .IsRequired()
+                .HasColumnName("created_date");
+
+            builder.Property(user=> user.GroupId)
+                .HasColumnName("user_group_id");
+
+            builder.Property(user => user.StateId)
+                .HasColumnName("user_state_id");
         }
     }
 }

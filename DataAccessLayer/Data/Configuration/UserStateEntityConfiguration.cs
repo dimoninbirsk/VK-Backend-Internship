@@ -8,7 +8,18 @@ namespace VKBackendInternship.DataAccessLayer.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<UserState> builder)
         {
-            throw new NotImplementedException();
+            builder
+                .ToTable("user_state")
+                .HasKey(state => state.Id)
+                .HasName("id");
+
+            builder.Property(state => state.Status)
+                .IsRequired()
+                .HasColumnName("code");
+
+            builder.Property(state => state.Description)
+                .IsRequired()
+                .HasColumnName("description");
         }
     }
 }
