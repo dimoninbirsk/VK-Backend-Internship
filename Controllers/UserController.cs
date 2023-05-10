@@ -35,7 +35,7 @@ namespace VKBackendInternship.Controllers
             // После создания удаляем из списка
             queue.Remove(request.Login);
 
-            if (responce.Errors.Count != 0)
+            if (responce.Errors.Count == 0)
                 return Ok("Пользователь успешно создан");
             return BadRequest(responce.Errors);
         }
@@ -44,7 +44,7 @@ namespace VKBackendInternship.Controllers
         public async Task<ActionResult<PaginationList<UserData>>> Get(int page, int size)
         {
             var result = await _service.GetUsers(page, size);
-            if(result.Errors.Count != 0)
+            if(result.Errors.Count == 0)
                 return Ok(result.Data);
             return BadRequest(result.Errors);
         }
@@ -52,7 +52,7 @@ namespace VKBackendInternship.Controllers
         public async Task<ActionResult<UserData>> Get(string login)
         {
             var result = await _service.GetUser(login);
-            if (result.Errors.Count != 0)
+            if (result.Errors.Count == 0)
                 return Ok(result.Data);
             return BadRequest(result.Errors);
         }
@@ -60,7 +60,7 @@ namespace VKBackendInternship.Controllers
         public async Task<ActionResult<string>> Put(string login)
         {
             var result = await _service.DeleteUser(login);
-            if (result.Errors.Count != 0)
+            if (result.Errors.Count == 0)
                 return Ok("Пользователь заблокирован");
             return BadRequest(result.Errors);
         }
