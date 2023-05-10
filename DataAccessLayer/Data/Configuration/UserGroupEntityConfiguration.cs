@@ -9,9 +9,7 @@ namespace VKBackendInternship.DataAccessLayer.Data.Configuration
         public void Configure(EntityTypeBuilder<UserGroup> builder)
         {
             builder
-                .ToTable("user_group")
-                .HasKey(group => group.Id)
-                .HasName("id");
+                .ToTable("user_group");
 
             builder.Property(group => group.Role)
                 .IsRequired()

@@ -12,8 +12,8 @@ using VKBackendInternship.DataAccessLayer.Data;
 namespace VKBackendInternship.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230504193451_Init")]
-    partial class Init
+    [Migration("20230510173620_scheme")]
+    partial class scheme
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,18 +27,18 @@ namespace VKBackendInternship.Migrations
 
             modelBuilder.Entity("VKBackendInternship.DataAccessLayer.Model.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("DateOfCreation")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_date");
 
-                    b.Property<int>("GroupId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_group_id");
 
                     b.Property<string>("Login")
                         .IsRequired()
@@ -50,11 +50,11 @@ namespace VKBackendInternship.Migrations
                         .HasColumnType("text")
                         .HasColumnName("password");
 
-                    b.Property<int>("StateId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("StateId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_state_id");
 
-                    b.HasKey("Id")
-                        .HasName("id");
+                    b.HasKey("Id");
 
                     b.HasIndex("GroupId");
 
@@ -65,11 +65,9 @@ namespace VKBackendInternship.Migrations
 
             modelBuilder.Entity("VKBackendInternship.DataAccessLayer.Model.UserGroup", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -80,19 +78,16 @@ namespace VKBackendInternship.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("code");
 
-                    b.HasKey("Id")
-                        .HasName("id");
+                    b.HasKey("Id");
 
                     b.ToTable("user_group", (string)null);
                 });
 
             modelBuilder.Entity("VKBackendInternship.DataAccessLayer.Model.UserState", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -103,8 +98,7 @@ namespace VKBackendInternship.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("code");
 
-                    b.HasKey("Id")
-                        .HasName("id");
+                    b.HasKey("Id");
 
                     b.ToTable("user_state", (string)null);
                 });
@@ -112,7 +106,7 @@ namespace VKBackendInternship.Migrations
             modelBuilder.Entity("VKBackendInternship.DataAccessLayer.Model.User", b =>
                 {
                     b.HasOne("VKBackendInternship.DataAccessLayer.Model.UserGroup", "Group")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -126,11 +120,6 @@ namespace VKBackendInternship.Migrations
                     b.Navigation("Group");
 
                     b.Navigation("State");
-                });
-
-            modelBuilder.Entity("VKBackendInternship.DataAccessLayer.Model.UserGroup", b =>
-                {
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

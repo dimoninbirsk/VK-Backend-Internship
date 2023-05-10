@@ -9,18 +9,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.5" />
      
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="DataAccessLayer\Repository\" />
     <Folder Include="Domain\Abstractions\IService\" />
-    <Folder Include="Domain\Abstractions\IRepository\" />
-    <Folder Include="Domain\DataTransferObjects\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 </Project>

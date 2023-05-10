@@ -9,9 +9,7 @@ namespace VKBackendInternship.DataAccessLayer.Data.Configuration
         public void Configure(EntityTypeBuilder<UserState> builder)
         {
             builder
-                .ToTable("user_state")
-                .HasKey(state => state.Id)
-                .HasName("id");
+                .ToTable("user_state");
 
             builder.Property(state => state.Status)
                 .IsRequired()

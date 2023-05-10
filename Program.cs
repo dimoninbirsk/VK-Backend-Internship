@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using VKBackendInternship.DataAccessLayer.Data;
+using VKBackendInternship.DataAccessLayer.Repository;
+using VKBackendInternship.Domain.Abstractions.IRepository;
+using VKBackendInternship.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,11 +11,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
-//builder.Services.AddDbContext<Context>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DatabaseLocation")));
-builder.Services.AddDbContext<Context>(options => 
-options.UseNpgsql("Host=nin.h.filess.io;Port=5432;Database=Petdatabase_nutsplaymy;Username=Petdatabase_nutsplaymy;Password=c90b96d82c6b34595aa6003959ad11f6429255bf"));
+builder.Services.AddDbContext<Context>(options =>
+options.UseNpgsql(builder.Configuration.GetConnectionString("Connection")));
+
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 

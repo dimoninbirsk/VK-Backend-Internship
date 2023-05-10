@@ -10,11 +10,14 @@ namespace VKBackendInternship.DataAccessLayer.Data.Configuration
         {
             builder
                 .ToTable("user")
-                .HasKey(user => user.Id)
-                .HasName("id");
+                .HasKey(user => user.Id);
 
             builder.HasOne(user => user.Group);
             builder.HasOne(user => user.State);
+
+            builder.Property(user => user.Id)
+                .IsRequired()
+                .HasColumnName("id");
 
             builder.Property(user => user.Login)
                 .IsRequired()

@@ -4,7 +4,7 @@ namespace VKBackendInternship.DataAccessLayer.Model
 {
     public class UserState
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public Status Status { get; set; }
         public string Description { get; set; } = "";
     }
